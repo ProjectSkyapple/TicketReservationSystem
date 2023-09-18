@@ -119,6 +119,74 @@ public class Main {
                 System.out.print("Enter the number of seniors: ");
                 requestedNumSeniorTickets = scnr.nextInt();
             }
+
+            int totalRequestedNumTickets = requestedNumAdultTickets + requestedNumChildTickets + requestedNumSeniorTickets;
+
+            // Return to main menu if totalRequestedNumTickets is more than numSeatsPerRow.
+            if (totalRequestedNumTickets > numSeatsPerRow) {
+                System.out.println("no seats available");
+                continue;
+            }
+
+            boolean isSeatTaken = false;
+
+            // Check if there is at least one reserved seat in user's desired seat selection.
+            for (int i = selectedSeat - 'A'; i < selectedSeat - 'A' + totalRequestedNumTickets; i++) {
+                if (auditorium[selectedRow - 1][i] != '.') {
+                    isSeatTaken = true;
+                    break;
+                }
+            }
+
+            if (!isSeatTaken) {
+                System.out.print("Ready to reserve " + selectedRow + selectedSeat + " - " + selectedRow +
+                                 (char) (selectedSeat + totalRequestedNumTickets - 1) + "? Y/N: ");
+
+                String reserveOption = scnr.next();
+
+                if (reserveOption.equals("Y")) {
+                    completeBooking(auditorium, selectedRow, selectedSeat, requestedNumAdultTickets,
+                                    requestedNumChildTickets, requestedNumSeniorTickets);
+                } else {
+                    continue;
+                }
+            } else {
+                // TODO: Implement else.
+            }
+
+            // Test to check if all characters from input file were correctly loaded into array.
+            System.out.println("***TEST***");
+
+            for (int i = 0; i < numRows; i++) {
+                for (int j = 0; j < numSeatsPerRow; j++) {
+                    System.out.print(auditorium[i][j]);
+                }
+
+                System.out.println();
+            }
+
+            System.out.println("**********");
+            // *******
+
+            System.out.println();
+        }
+    }
+
+    public static void completeBooking(char[][] auditorium, int row, char seat, int numAdults,
+                                       int numChildren, int numSeniors) {
+        // Reserve adults together...
+        for (int i = seat - 'A'; i < seat - 'A' + numAdults; i++) {
+            auditorium[row - 1][i] = 'A';
+        }
+
+        // ...then followed by children...
+        for (int i = seat - 'A' + numAdults; i < seat - 'A' + numAdults + numChildren; i++) {
+            auditorium[row - 1][i] = 'C';
+        }
+
+        // ...then finally seniors.
+        for (int i = seat - 'A' + numAdults + numChildren; i < seat - 'A' + numAdults + numChildren + numSeniors; i++) {
+            auditorium[row - 1][i] = 'S';
         }
     }
 }
