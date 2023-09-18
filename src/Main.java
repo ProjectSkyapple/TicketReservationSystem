@@ -150,8 +150,60 @@ public class Main {
                 } else {
                     continue;
                 }
-            } else {
-                // TODO: Implement else.
+            } else { // Find best available seats.
+                double rowMidpoint = numSeatsPerRow / 2.0;
+                int[] possibleBestAvailableIndices = new int[numSeatsPerRow - 1];
+                double[] possibleBestAvailableMidpoints = new double[numSeatsPerRow - 1]; // Midpoints here correspond
+                                                                                          // to indices in possible
+                                                                                          // indices array.
+                int numPossibleBestAvailableIndices = 0;
+
+                // For every possible seat selection in row, determine if any seat in selection is reserved.
+                for (int i = 0; i < numSeatsPerRow + 1 - totalRequestedNumTickets; i++) {
+                    boolean innerIsSeatTaken = false;
+
+                    for (int j = 0; j < totalRequestedNumTickets; j++) {
+                        if (auditorium[selectedRow - 1][i + j] != '.') {
+                            innerIsSeatTaken = true;
+                        }
+                    }
+
+                    // A possible seat selection has no seats reserved :). This is considered a possible "best
+                    // available" seat selection.
+                    // Add this seat selection's starting seat index and midpoint to the corresponding arrays.
+                    if (!innerIsSeatTaken) {
+                        numPossibleBestAvailableIndices++;
+                        possibleBestAvailableIndices[numPossibleBestAvailableIndices] = i;
+                        possibleBestAvailableMidpoints[numPossibleBestAvailableIndices] = i + (i + totalRequestedNumTickets) / 2.0;
+                    }
+                }
+
+                int bestAvailableStartingSeatIndex = -1;
+                double smallestDifference = 50;
+
+                // Find the smallest difference between a seat selection midpoint and the midpoint of the selected row.
+                // The seat selection with this smallest difference is *the* best available seat selection.
+                for (int i = 0; i < numPossibleBestAvailableIndices; i++) {
+                    if (Math.abs(possibleBestAvailableMidpoints[i] - rowMidpoint) < smallestDifference) {
+                        bestAvailableStartingSeatIndex = possibleBestAvailableIndices[i];
+                    }
+                }
+
+                System.out.print("Your seat selection is not available. We recommend the following seat selection: ");
+                System.out.println("" + selectedRow + ((char) ('A' + bestAvailableStartingSeatIndex)) + " - " +
+                                   selectedRow + ((char) ('A' + bestAvailableStartingSeatIndex +
+                                   totalRequestedNumTickets - 1)));
+
+                System.out.print("Do you want to reserve this seat selection? Y/N: ");
+
+                String reserveOption = scnr.next();
+
+                if (reserveOption.equals("Y")) {
+                    completeBooking(auditorium, selectedRow, (char) ('A' + bestAvailableStartingSeatIndex),
+                                    requestedNumAdultTickets, requestedNumChildTickets, requestedNumSeniorTickets);
+                } else {
+                    continue;
+                }
             }
 
             // Test to check if all characters from input file were correctly loaded into array.
