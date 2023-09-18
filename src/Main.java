@@ -172,10 +172,15 @@ public class Main {
                     // available" seat selection.
                     // Add this seat selection's starting seat index and midpoint to the corresponding arrays.
                     if (!innerIsSeatTaken) {
-                        numPossibleBestAvailableIndices++;
                         possibleBestAvailableIndices[numPossibleBestAvailableIndices] = i;
-                        possibleBestAvailableMidpoints[numPossibleBestAvailableIndices] = i + (i + totalRequestedNumTickets) / 2.0;
+                        possibleBestAvailableMidpoints[numPossibleBestAvailableIndices] = (i + (i + totalRequestedNumTickets)) / 2.0;
+                        numPossibleBestAvailableIndices++;
                     }
+                }
+
+                if (numPossibleBestAvailableIndices == 0) {
+                    System.out.println("no seats available");
+                    continue;
                 }
 
                 int bestAvailableStartingSeatIndex = -1;
@@ -184,10 +189,26 @@ public class Main {
                 // Find the smallest difference between a seat selection midpoint and the midpoint of the selected row.
                 // The seat selection with this smallest difference is *the* best available seat selection.
                 for (int i = 0; i < numPossibleBestAvailableIndices; i++) {
-                    if (Math.abs(possibleBestAvailableMidpoints[i] - rowMidpoint) < smallestDifference) {
+                    double currentDifference = Math.abs(possibleBestAvailableMidpoints[i] - rowMidpoint);
+
+                    if (currentDifference < smallestDifference) {
+                        smallestDifference = currentDifference;
                         bestAvailableStartingSeatIndex = possibleBestAvailableIndices[i];
+                        // TODO: Comment out below debug statement when finished.
+                        // System.out.println("ba index: " + (char) (bestAvailableStartingSeatIndex + 'A'));
                     }
                 }
+
+                // TODO: Comment out below debug statements when finished.
+                /*
+                for (int i = 0; i < numPossibleBestAvailableIndices; i++) {
+                    System.out.print("" + (char) ('A' + possibleBestAvailableIndices[i]));
+                    System.out.print('\t');
+                    System.out.println(Math.abs(possibleBestAvailableMidpoints[i] - rowMidpoint));
+                }
+
+                System.out.println("# of ba indices: " + numPossibleBestAvailableIndices);
+                */
 
                 System.out.print("Your seat selection is not available. We recommend the following seat selection: ");
                 System.out.println("" + selectedRow + ((char) ('A' + bestAvailableStartingSeatIndex)) + " - " +
