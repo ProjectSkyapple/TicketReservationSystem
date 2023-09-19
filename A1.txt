@@ -1,0 +1,6 @@
+  @ABCDEFGHIJKLMNOPQRS
+1 AA.AA....AAA..AACCSS
+2 ..AC.....AAA.......A
+3 S...........AACCCAAC
+4 .AA...CC.SS.....SSC.
+5 A.A..S...S..A......A

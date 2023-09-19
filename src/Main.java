@@ -229,7 +229,7 @@ public class Main {
         // Output the auditorium to A1.
         outputFileWriter.print("  ");
         for (int i = 0; i < numSeatsPerRow; i++) {
-            outputFileWriter.print((char) (65 + i - 1));
+            outputFileWriter.print((char) (65 + i));
         }
         outputFileWriter.println();
 
@@ -253,6 +253,15 @@ public class Main {
 
             outputFileWriter.println();
         }
+
+        outputFileWriter.close();
+
+        System.out.println("Total Tickets: " + totalTicketsSold);
+        System.out.println("Adult Tickets: " + totalAdultTicketsSold);
+        System.out.println("Child Tickets: " + totalChildTicketsSold);
+        System.out.println("Senior Tickets: " + totalSeniorTicketsSold);
+        System.out.printf("Total Sales: $%.2f", (10.00 * totalAdultTicketsSold + 5.00 * totalChildTicketsSold + 7.50 * totalSeniorTicketsSold));
+
     }
 
     public static void completeBooking(char[][] auditorium, int row, char seat, int numAdults,
