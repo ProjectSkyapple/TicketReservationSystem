@@ -1,5 +1,7 @@
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class Main {
@@ -33,20 +35,6 @@ public class Main {
         numSeatsPerRow /= numRows;
 
         inputFileScanner.close();
-
-        // Test to check if all characters from input file were correctly loaded into array.
-        System.out.println("***TEST***");
-
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numSeatsPerRow; j++) {
-                System.out.print(auditorium[i][j]);
-            }
-
-            System.out.println();
-        }
-
-        System.out.println("**********");
-        // *******
 
         int selectedOption = 0;
 
@@ -226,22 +214,44 @@ public class Main {
                     continue;
                 }
             }
+        }
 
-            // Test to check if all characters from input file were correctly loaded into array.
-            System.out.println("***TEST***");
+        System.out.println("Total Seats: " + (numSeatsPerRow * numRows));
 
-            for (int i = 0; i < numRows; i++) {
-                for (int j = 0; j < numSeatsPerRow; j++) {
-                    System.out.print(auditorium[i][j]);
+        FileOutputStream outputFileStream = new FileOutputStream("A1.txt");
+        PrintWriter outputFileWriter = new PrintWriter(outputFileStream);
+
+        int totalTicketsSold = 0;
+        int totalAdultTicketsSold = 0;
+        int totalChildTicketsSold = 0;
+        int totalSeniorTicketsSold = 0;
+
+        // Output the auditorium to A1.
+        outputFileWriter.print("  ");
+        for (int i = 0; i < numSeatsPerRow; i++) {
+            outputFileWriter.print((char) (65 + i - 1));
+        }
+        outputFileWriter.println();
+
+        for (int i = 1; i <= numRows; i++) {
+            outputFileWriter.print(i + " ");
+
+            for (int j = 0; j < numSeatsPerRow; j++) {
+                outputFileWriter.print(auditorium[i - 1][j]);
+
+                if (auditorium[i - 1][j] == 'A') {
+                    totalAdultTicketsSold++;
+                    totalTicketsSold++;
+                } else if (auditorium[i - 1][j] == 'C') {
+                    totalChildTicketsSold++;
+                    totalTicketsSold++;
+                } else if (auditorium[i - 1][j] == 'S') {
+                    totalSeniorTicketsSold++;
+                    totalTicketsSold++;
                 }
-
-                System.out.println();
             }
 
-            System.out.println("**********");
-            // *******
-
-            System.out.println();
+            outputFileWriter.println();
         }
     }
 
