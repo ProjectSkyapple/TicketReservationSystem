@@ -1,3 +1,6 @@
+// Aaron Jacob
+// AXJ210111
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -127,17 +130,14 @@ public class Main {
             }
 
             if (!isSeatTaken) {
-                System.out.print("Ready to reserve " + selectedRow + selectedSeat + " - " + selectedRow +
-                                 (char) (selectedSeat + totalRequestedNumTickets - 1) + "? Y/N: ");
+                // System.out.print("Ready to reserve " + selectedRow + selectedSeat + " - " + selectedRow +
+                //                 (char) (selectedSeat + totalRequestedNumTickets - 1) + "? Y/N: ");
 
-                String reserveOption = scnr.next();
+                // String reserveOption = scnr.next();
 
-                if (reserveOption.equals("Y")) {
+                // if (reserveOption.equals("Y")) {
                     completeBooking(auditorium, selectedRow, selectedSeat, requestedNumAdultTickets,
                                     requestedNumChildTickets, requestedNumSeniorTickets);
-                } else {
-                    continue;
-                }
             } else { // Find best available seats.
                 double rowMidpoint = numSeatsPerRow / 2.0;
                 int[] possibleBestAvailableIndices = new int[numSeatsPerRow - 1];
