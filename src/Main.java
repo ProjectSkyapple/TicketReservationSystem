@@ -22,6 +22,7 @@ public class Main {
         int numSeatsPerRow = 0;
         int numRows = 0;
 
+        // Read characters from input file into auditorium 2D array.
         int whileCounter1 = 0;
         while (inputFileScanner.hasNext()) {
             String row = inputFileScanner.nextLine();
@@ -39,9 +40,9 @@ public class Main {
 
         inputFileScanner.close();
 
-        int selectedOption = 0;
+        int selectedOption;
 
-        while (selectedOption != 2) {
+        while (true) {
             System.out.println("1. Reserve Seats");
             System.out.println("2. Exit");
             System.out.print("Choose an option: ");
@@ -130,14 +131,8 @@ public class Main {
             }
 
             if (!isSeatTaken) {
-                // System.out.print("Ready to reserve " + selectedRow + selectedSeat + " - " + selectedRow +
-                //                 (char) (selectedSeat + totalRequestedNumTickets - 1) + "? Y/N: ");
-
-                // String reserveOption = scnr.next();
-
-                // if (reserveOption.equals("Y")) {
-                    completeBooking(auditorium, selectedRow, selectedSeat, requestedNumAdultTickets,
-                                    requestedNumChildTickets, requestedNumSeniorTickets);
+                completeBooking(auditorium, selectedRow, selectedSeat, requestedNumAdultTickets,
+                                requestedNumChildTickets, requestedNumSeniorTickets);
             } else { // Find best available seats.
                 double rowMidpoint = numSeatsPerRow / 2.0;
                 int[] possibleBestAvailableIndices = new int[numSeatsPerRow - 1];
@@ -153,6 +148,7 @@ public class Main {
                     for (int j = 0; j < totalRequestedNumTickets; j++) {
                         if (auditorium[selectedRow - 1][i + j] != '.') {
                             innerIsSeatTaken = true;
+                            break;
                         }
                     }
 
@@ -182,21 +178,8 @@ public class Main {
                     if (currentDifference < smallestDifference) {
                         smallestDifference = currentDifference;
                         bestAvailableStartingSeatIndex = possibleBestAvailableIndices[i];
-                        // TODO: Comment out below debug statement when finished.
-                        // System.out.println("ba index: " + (char) (bestAvailableStartingSeatIndex + 'A'));
                     }
                 }
-
-                // TODO: Comment out below debug statements when finished.
-                /*
-                for (int i = 0; i < numPossibleBestAvailableIndices; i++) {
-                    System.out.print("" + (char) ('A' + possibleBestAvailableIndices[i]));
-                    System.out.print('\t');
-                    System.out.println(Math.abs(possibleBestAvailableMidpoints[i] - rowMidpoint));
-                }
-
-                System.out.println("# of ba indices: " + numPossibleBestAvailableIndices);
-                */
 
                 System.out.print("Your seat selection is not available. We recommend the following seat selection: ");
                 System.out.println("" + selectedRow + ((char) ('A' + bestAvailableStartingSeatIndex)) + " - " +
@@ -210,8 +193,6 @@ public class Main {
                 if (reserveOption.equals("Y")) {
                     completeBooking(auditorium, selectedRow, (char) ('A' + bestAvailableStartingSeatIndex),
                                     requestedNumAdultTickets, requestedNumChildTickets, requestedNumSeniorTickets);
-                } else {
-                    continue;
                 }
             }
         }
@@ -227,15 +208,7 @@ public class Main {
         int totalSeniorTicketsSold = 0;
 
         // Output the auditorium to A1.
-        outputFileWriter.print("  ");
-        for (int i = 0; i < numSeatsPerRow; i++) {
-            outputFileWriter.print((char) (65 + i));
-        }
-        outputFileWriter.println();
-
         for (int i = 1; i <= numRows; i++) {
-            outputFileWriter.print(i + " ");
-
             for (int j = 0; j < numSeatsPerRow; j++) {
                 outputFileWriter.print(auditorium[i - 1][j]);
 
