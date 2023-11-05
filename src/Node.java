@@ -1,8 +1,8 @@
 public class Node<AnyType> {
-    AnyType payload;
-    Node<AnyType> next;
-    Node<AnyType> previous;
-    Node<AnyType> down;
+    private AnyType payload;
+    private Node<AnyType> next;
+    private Node<AnyType> previous;
+    private Node<AnyType> down;
 
     public Node(AnyType pl, Node<AnyType> n, Node<AnyType> p, Node<AnyType> d) {
         payload = pl;
