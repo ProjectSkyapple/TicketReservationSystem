@@ -282,15 +282,15 @@ public class Main {
         // Output the auditorium to A1.
         for (int i = 1; i <= numRows; i++) {
             for (int j = 0; j < numSeatsPerRow; j++) {
-                outputFileWriter.print(auditorium[i - 1][j]);
+                outputFileWriter.print(getSeat(auditoriumObject, i, (char) ('A' + j)).getTicketType());
 
-                if (auditorium[i - 1][j] == 'A') {
+                if (getSeat(auditoriumObject, i, (char) ('A' + j)).getTicketType() == 'A') {
                     totalAdultTicketsSold++;
                     totalTicketsSold++;
-                } else if (auditorium[i - 1][j] == 'C') {
+                } else if (getSeat(auditoriumObject, i, (char) ('A' + j)).getTicketType() == 'C') {
                     totalChildTicketsSold++;
                     totalTicketsSold++;
-                } else if (auditorium[i - 1][j] == 'S') {
+                } else if (getSeat(auditoriumObject, i, (char) ('A' + j)).getTicketType() == 'S') {
                     totalSeniorTicketsSold++;
                     totalTicketsSold++;
                 }
