@@ -238,6 +238,7 @@ public class Main {
                 int bestAvailableStartingSeatIndex = -1;
                 int bestAvailableRowNumber = 0;
                 double smallestDifference = Integer.MAX_VALUE;
+                double correspondingCurrentDifferenceY = Integer.MAX_VALUE;
 
                 // Find the smallest difference between a seat selection midpoint and the midpoint of the selected row.
                 // The seat selection with this smallest difference is *the* best available seat selection.
@@ -246,8 +247,10 @@ public class Main {
                     double currentDifferenceY = Math.abs(possibleBestAvailableRowMiddles.get(i) - columnMidpoint);
                     double currentDifference = Math.sqrt(Math.pow(currentDifferenceX, 2) + Math.pow(currentDifferenceY, 2));
 
-                    if (currentDifference < smallestDifference) {
+                    if ((currentDifference == smallestDifference && currentDifferenceY < correspondingCurrentDifferenceY) ||
+                        currentDifference < smallestDifference) {
                         smallestDifference = currentDifference;
+                        correspondingCurrentDifferenceY = currentDifferenceY;
                         bestAvailableStartingSeatIndex = possibleBestAvailableIndices.get(i);
                         bestAvailableRowNumber = possibleBestAvailableRowNumbers.get(i);
                     }
