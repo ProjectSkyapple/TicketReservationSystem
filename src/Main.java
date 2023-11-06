@@ -8,6 +8,48 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class Main {
+    // getSeat method: Returns specified seat in specified Auditorium object.
+    // Parameters: Auditorium object, row number, seat letter
+    // Returns: Seat object
+    public static Seat getSeat(Auditorium<Seat> auditorium, int r, char s) {
+        Node<Seat> current = auditorium.getFirst();
+
+        // Navigate to selected seat.
+        for (int i = 0; i < r - 1; i++) {
+            current = current.getDown();
+        }
+
+        for (int i = 0; i < s - 'A'; i++) {
+            current = current.getNext();
+        }
+
+        return current.getPayload();
+    }
+
+    // setSeat method: Sets a specified Auditorium Seat's properties to the arguments provided.
+    // Parameters: Auditorium object, row number, seat letter, ticket type
+    // Returns: nothing
+    public static void setSeat(Auditorium<Seat> auditorium, int r, char s, char type) {
+        Node<Seat> current = auditorium.getFirst();
+
+        for (int i = 0; i < r - 1; i++) {
+            current = current.getDown();
+        }
+
+        for (int i = 0; i < s - 'A'; i++) {
+            current = current.getNext();
+        }
+
+        if (current.getPayload() == null) {
+            current.setPayload(new Seat(r, s, type));
+        }
+        else {
+            current.getPayload().setRow(r);
+            current.getPayload().setSeat(s);
+            current.getPayload().setTicketType(type);
+        }
+    }
+
     public static void main(String[] args) throws IOException {
         Scanner scnr = new Scanner(System.in);
         String inputFilename;
