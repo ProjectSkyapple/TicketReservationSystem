@@ -303,19 +303,19 @@ public class Main {
         // Reserve adults together...
         for (int i = seat - 'A'; i < seat - 'A' + numAdults; i++) {
             // auditorium[row - 1][i] = 'A';
-            setSeat(auditoriumObject, row - 1, (char) ('A' + i), 'A');
+            setSeat(auditoriumObject, row, (char) ('A' + i), 'A');
         }
 
         // ...then followed by children...
         for (int i = seat - 'A' + numAdults; i < seat - 'A' + numAdults + numChildren; i++) {
             // auditorium[row - 1][i] = 'C';
-            setSeat(auditoriumObject, row - 1, (char) ('A' + i), 'C');
+            setSeat(auditoriumObject, row, (char) ('A' + i), 'C');
         }
 
         // ...then finally seniors.
         for (int i = seat - 'A' + numAdults + numChildren; i < seat - 'A' + numAdults + numChildren + numSeniors; i++) {
             // auditorium[row - 1][i] = 'S';
-            setSeat(auditoriumObject, row - 1, (char) ('A' + i), 'S');
+            setSeat(auditoriumObject, row, (char) ('A' + i), 'S');
         }
     }
 }
