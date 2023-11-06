@@ -185,7 +185,7 @@ public class Main {
 
             // Check if there is at least one reserved seat in user's desired seat selection.
             for (int i = selectedSeat - 'A'; i < selectedSeat - 'A' + totalRequestedNumTickets; i++) {
-                if (auditorium[selectedRow - 1][i] != '.') {
+                if (getSeat(auditoriumObject, selectedRow, (char) ('A' + i)).getTicketType() != '.') {
                     isSeatTaken = true;
                     break;
                 }
