@@ -60,25 +60,46 @@ public class Main {
         FileInputStream inputFileStream = new FileInputStream(inputFilename);
         Scanner inputFileScanner = new Scanner(inputFileStream);
 
-        char[][] auditorium = new char[10][26];
+        // char[][] auditorium = new char[10][26];
+        Auditorium<Seat> auditoriumObject;
         int numSeatsPerRow = 0;
         int numRows = 0;
 
         // Read characters from input file into auditorium 2D array.
+        // int whileCounter1 = 0;
+        while (inputFileScanner.hasNext()) {
+            String row = inputFileScanner.nextLine();
+
+            for (int j = 0; j < row.length(); j++) {
+                // auditorium[whileCounter1][j] = row.charAt(j);
+                numSeatsPerRow++;
+            }
+
+            numRows++;
+            // whileCounter1++;
+        }
+
+        numSeatsPerRow /= numRows;
+
+        auditoriumObject = new Auditorium<>(numRows, numSeatsPerRow);
+
+        inputFileScanner.close();
+        inputFileStream = new FileInputStream(inputFilename);
+        inputFileScanner = new Scanner(inputFileStream);
+
         int whileCounter1 = 0;
         while (inputFileScanner.hasNext()) {
             String row = inputFileScanner.nextLine();
 
             for (int j = 0; j < row.length(); j++) {
-                auditorium[whileCounter1][j] = row.charAt(j);
+                // auditorium[whileCounter1][j] = row.charAt(j);
+                setSeat(auditoriumObject, whileCounter1 + 1, (char) ('A' + j), row.charAt(j));
                 numSeatsPerRow++;
             }
 
             numRows++;
             whileCounter1++;
         }
-
-        numSeatsPerRow /= numRows;
 
         inputFileScanner.close();
 
