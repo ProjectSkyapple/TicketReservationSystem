@@ -96,7 +96,6 @@ public class Main {
                 setSeat(auditoriumObject, whileCounter1 + 1, (char) ('A' + j), row.charAt(j));
             }
 
-            numRows++;
             whileCounter1++;
         }
 
