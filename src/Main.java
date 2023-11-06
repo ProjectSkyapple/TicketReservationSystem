@@ -94,7 +94,6 @@ public class Main {
             for (int j = 0; j < row.length(); j++) {
                 // auditorium[whileCounter1][j] = row.charAt(j);
                 setSeat(auditoriumObject, whileCounter1 + 1, (char) ('A' + j), row.charAt(j));
-                numSeatsPerRow++;
             }
 
             numRows++;
@@ -129,7 +128,7 @@ public class Main {
                 System.out.print(i + " ");
 
                 for (int j = 0; j < numSeatsPerRow; j++) {
-                    if (auditorium[i - 1][j] == '.') {
+                    if (getSeat(auditoriumObject, i, (char) ('A' + j)).getTicketType() == '.') {
                         System.out.print('.');
                     } else {
                         System.out.print('#');
