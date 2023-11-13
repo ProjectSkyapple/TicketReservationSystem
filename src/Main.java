@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -147,31 +148,66 @@ public class Main {
             while (selectedRow < 1 || selectedRow > numRows) {
                 // Prompt for selectedRow.
                 System.out.print("Select a row: ");
-                selectedRow = scnr.nextInt();
+
+                try {
+                    selectedRow = scnr.nextInt();
+                }
+                catch (InputMismatchException typeError) {
+                    // Loop again.
+                    scnr.next();
+                }
             }
 
             while (selectedSeat < 'A' || selectedSeat > (char) ('A' + numSeatsPerRow - 1)) {
                 // Prompt for selectedSeat.
                 System.out.print("Select a starting seat: ");
-                selectedSeat = scnr.next().charAt(0);
+
+                try {
+                    selectedSeat = scnr.next().charAt(0);
+                }
+                catch (InputMismatchException typeError) {
+                    // Loop again.
+                    scnr.next();
+                }
             }
 
             while (requestedNumAdultTickets < 0) {
                 // Prompt for requestedNumAdultTickets.
                 System.out.print("Enter the number of adults: ");
-                requestedNumAdultTickets = scnr.nextInt();
+
+                try {
+                    requestedNumAdultTickets = scnr.nextInt();
+                }
+                catch (InputMismatchException typeError) {
+                    // Loop again.
+                    scnr.next();
+                }
             }
 
             while (requestedNumChildTickets < 0) {
                 // Prompt for requestedNumChildTickets.
                 System.out.print("Enter the number of children: ");
-                requestedNumChildTickets = scnr.nextInt();
+
+                try {
+                    requestedNumChildTickets = scnr.nextInt();
+                }
+                catch (InputMismatchException typeError) {
+                    // Loop again.
+                    scnr.next();
+                }
             }
 
             while (requestedNumSeniorTickets < 0) {
                 // Prompt for requestedNumSeniorTickets.
                 System.out.print("Enter the number of seniors: ");
-                requestedNumSeniorTickets = scnr.nextInt();
+
+                try {
+                    requestedNumSeniorTickets = scnr.nextInt();
+                }
+                catch (InputMismatchException typeError) {
+                    // Loop again.
+                    scnr.next();
+                }
             }
 
             int totalRequestedNumTickets = requestedNumAdultTickets + requestedNumChildTickets + requestedNumSeniorTickets;
