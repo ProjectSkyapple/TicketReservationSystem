@@ -1,10 +1,7 @@
 // Aaron Jacob
 // AXJ210111
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -55,12 +52,23 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Scanner scnr = new Scanner(System.in);
         String inputFilename;
+        FileInputStream inputFileStream;
+        Scanner inputFileScanner;
 
-        System.out.print("Enter filename: ");
-        inputFilename = scnr.nextLine();
+        while (true) {
+            try {
+                System.out.print("Enter filename: ");
+                inputFilename = scnr.nextLine();
 
-        FileInputStream inputFileStream = new FileInputStream(inputFilename);
-        Scanner inputFileScanner = new Scanner(inputFileStream);
+                inputFileStream = new FileInputStream(inputFilename);
+                inputFileScanner = new Scanner(inputFileStream);
+
+                break;
+            }
+            catch (FileNotFoundException fileError) {
+                System.out.print("File not found. ");
+            }
+        }
 
         // char[][] auditorium = new char[10][26];
         Auditorium<Seat> auditoriumObject;
@@ -103,14 +111,22 @@ public class Main {
 
         inputFileScanner.close();
 
-        int selectedOption;
+        int selectedOption = 0;
 
         while (true) {
-            System.out.println("1. Reserve Seats");
-            System.out.println("2. Exit");
-            System.out.print("Choose an option: ");
+            while (selectedOption == 0) {
+                System.out.println("1. Reserve Seats");
+                System.out.println("2. Exit");
+                System.out.print("Choose an option: ");
 
-            selectedOption = scnr.nextInt();
+                try {
+                    selectedOption = scnr.nextInt();
+                }
+                catch (InputMismatchException typeError) {
+                    // Loop again.
+                    scnr.next();
+                }
+            }
 
             if (selectedOption == 2) {
                 break;
