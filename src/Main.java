@@ -114,13 +114,14 @@ public class Main {
         int selectedOption = 0;
 
         while (true) {
-            while (selectedOption == 0) {
+            while (true) {
                 System.out.println("1. Reserve Seats");
                 System.out.println("2. Exit");
                 System.out.print("Choose an option: ");
 
                 try {
                     selectedOption = scnr.nextInt();
+                    break;
                 }
                 catch (InputMismatchException typeError) {
                     // Loop again.
